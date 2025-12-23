@@ -10,15 +10,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout repo
+      # 1. Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
       # 2. Set up Python
-      - name: Set up Python 3.12.7
+      - name: Set up Python 3.13.5
         uses: actions/setup-python@v4
         with:
-          python-version: "3.12.7"
+          python-version: "3.13.5"
 
       # 3. Check environment
       - name: Check Python environment
@@ -26,19 +26,22 @@ jobs:
           python --version
           pip --version
 
-      # 4. Install MLflow & core deps
+      # 4. Install MLflow & core dependencies
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install mlflow scikit-learn pandas numpy
+          pip install mlflow scikit-learn pandas numpy matplotlib seaborn
 
-      # 5. Run MLflow Project
+      # 5. Run MLflow Project (training)
+      # IMPORTANT:
+      # - Tidak menggunakan `cd`
+      # - Working directory tetap root
+      # - MLflow akan membuat ./mlruns
       - name: Run MLflow Project (training)
         run: |
-          mlflow run . \
-            --env-manager=local
+          mlflow run ./ml_project --env-manager=local
 
-      # 6. Upload MLflow artifacts
+      # 6. Upload MLflow artifacts (mlruns)
       - name: Upload MLflow artifacts
         uses: actions/upload-artifact@v4
         with:
