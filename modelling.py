@@ -10,7 +10,6 @@ from sklearn.metrics import (
     ConfusionMatrixDisplay
 )
 import matplotlib.pyplot as plt
-import seaborn as sns
 import os
 
 # Jangan set experiment & jangan start_run
