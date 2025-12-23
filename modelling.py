@@ -10,7 +10,9 @@ from sklearn.metrics import (
     ConfusionMatrixDisplay,
     confusion_matrix
 )
+import matplotlib
 import matplotlib.pyplot as plt
+matplotlib.use("Agg")  # WAJIB untuk headless CI
 import os
 
 # Jangan set experiment & jangan start_run
@@ -56,14 +58,18 @@ mlflow.sklearn.log_model(
 )
 
 # Confusion matrix artifact
+# Buat direktori artifacts
+artifact_dir = "artifacts"
+os.makedirs(artifact_dir, exist_ok=True)
+
 cm = confusion_matrix(y_test, y_pred)
-disp = ConfusionMatrixDisplay(
-    confusion_matrix=cm
-)
+
+disp = ConfusionMatrixDisplay(confusion_matrix=cm)
 disp.plot(cmap="Blues")
+
 plt.title("Confusion Matrix")
 
-cm_path = "artifacts/confusion_matrix.png"
+cm_path = os.path.join(artifact_dir, "confusion_matrix.png")
 plt.savefig(cm_path)
 plt.close()
 
