@@ -5,8 +5,8 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--data_path", type=str, required=True)
-parser.add_argument("--experiment_name", type=str, required=True)
+parser.add_argument("--data_path", type=str, default="car_evaluation_train_encoded.csv")
+parser.add_argument("--experiment_name", type=str, default="car_evaluation_experiment")
 args = parser.parse_args()
 
 mlflow.set_experiment(args.experiment_name)
