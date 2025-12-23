@@ -32,11 +32,9 @@ jobs:
           pip install --upgrade pip
           pip install mlflow scikit-learn pandas numpy
 
-      # 5. Run MLflow Project
       - name: Run MLflow Project (training)
         run: |
-          mlflow run . \
-            --env-manager=local
+          mlflow run ./ml_project --env-manager=local
 
       # 6. Upload MLflow artifacts
       - name: Upload MLflow artifacts
