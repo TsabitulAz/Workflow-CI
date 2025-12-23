@@ -7,7 +7,7 @@ from sklearn.metrics import (
     f1_score,
     log_loss,
     roc_auc_score,
-    confusion_matrix
+    ConfusionMatrixDisplay
 )
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -56,14 +56,12 @@ mlflow.sklearn.log_model(
 )
 
 # Confusion matrix artifact
-cm = confusion_matrix(y_test, y_pred)
-plt.figure(figsize=(6, 5))
-sns.heatmap(cm, annot=True, fmt="d", cmap="Blues")
+disp = ConfusionMatrixDisplay(
+    confusion_matrix=cm
+)
+disp.plot(cmap="Blues")
 plt.title("Confusion Matrix")
-plt.ylabel("Actual")
-plt.xlabel("Predicted")
 
-os.makedirs("artifacts", exist_ok=True)
 cm_path = "artifacts/confusion_matrix.png"
 plt.savefig(cm_path)
 plt.close()
