@@ -7,7 +7,8 @@ from sklearn.metrics import (
     f1_score,
     log_loss,
     roc_auc_score,
-    ConfusionMatrixDisplay
+    ConfusionMatrixDisplay,
+    confusion_matrix
 )
 import matplotlib.pyplot as plt
 import os
@@ -55,6 +56,7 @@ mlflow.sklearn.log_model(
 )
 
 # Confusion matrix artifact
+cm = confusion_matrix(y_test, y_pred)
 disp = ConfusionMatrixDisplay(
     confusion_matrix=cm
 )
